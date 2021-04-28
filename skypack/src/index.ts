@@ -48,11 +48,9 @@ export class SkypackSDK {
         }
         if (lookupResponse.pinnedUrl) {
           let keepGoing = true;
-          const deepPinnedUrlParts = lookupResponse.pinnedUrl.split('/');
+          const [, , ...deepPinnedUrlParts] = lookupResponse.pinnedUrl.split('/');
           // TODO: Get ?meta support to get this info via JSON instead of header manipulation
-          deepPinnedUrlParts.shift(); // remove ""
-          deepPinnedUrlParts.shift(); // remove "pin"
-
+          
           while (keepGoing) {
             const investigate = deepPinnedUrlParts.pop()!;
             if (HAS_CDN_HASH_REGEX.test(investigate)) {
